@@ -347,9 +347,9 @@ function Login() {
           >
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
               {isLogin ? (
-                <LogIn className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-200" />
+                <LogIn className="h-5 w-5 text-white-500 group-hover:text-indigo-400 transition-colors duration-200" />
               ) : (
-                <UserPlus className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-200" />
+                <UserPlus className="h-5 w-5 text-white-500 group-hover:text-indigo-400 transition-colors duration-200" />
               )}
             </span>
             {isLogin ? "Sign in" : "Create account"}
