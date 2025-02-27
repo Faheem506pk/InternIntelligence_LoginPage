@@ -3,7 +3,13 @@ import {
   Lock,
   User,
   ArrowRight,
-  
+  Eye,
+  EyeOff,
+  Mail,
+  Phone,
+  Building,
+  LogIn,
+  UserPlus
 } from "lucide-react";
 import ForgotPassword from "./ForgotPassword";
 import { auth, db } from "../firebase";
@@ -23,8 +29,6 @@ import Dashboard from "./Dashboard";
 import GlassmorphismInput from "./GlassmorphismInput";
 import { useNavigate } from "react-router-dom";
 
-
-
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -35,6 +39,7 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate(); 
   const [errors, setErrors] = useState<{
     email?: string;
@@ -155,6 +160,10 @@ function Login() {
     setCompany("");
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -175,12 +184,15 @@ function Login() {
         <div className="bg-blur"></div>
       </div>
 
-      
       {/* Main Form */}
       <div className="max-w-md w-full space-y-8 glass-card p-6 sm:p-8 transition-all duration-300 hover:shadow-2xl animate-fadeIn relative z-10">
         <div className="text-center mb-[40px]">
           <div className="mx-auto h-12 w-12 bg-white rounded-full flex items-center justify-center">
-            <User className="h-6 w-6 text-indigo-600" />
+            {isLogin ? (
+              <LogIn className="h-6 w-6 text-indigo-600" />
+            ) : (
+              <UserPlus className="h-6 w-6 text-indigo-600" />
+            )}
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900 animate-slideDown">
             {isLogin ? "Welcome back" : "Create account"}
@@ -196,7 +208,7 @@ function Login() {
           </p>
         </div>
 
-        <form className="mt-8 space-y-8 " onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-8" onSubmit={handleSubmit}>
           {errors.auth && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
               {errors.auth}
@@ -208,14 +220,14 @@ function Login() {
               <>
                 <div className="animate-slideRight">
                   <div className="relative">
-                  
                     <GlassmorphismInput
-        label="Full Name"
-        type="text"
-        name="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+                      label="Full Name"
+                      type="text"
+                      name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      icon={<User size={18} className="text-indigo-600" />}
+                    />
                   </div>
                   {errors.name && (
                     <p className="mt-2 text-sm text-red-600">{errors.name}</p>
@@ -224,13 +236,14 @@ function Login() {
 
                 <div className="animate-slideLeft">
                   <div className="relative">
-                  <GlassmorphismInput
-        label="Phone Number"
-        type="tel"
-        name="phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
+                    <GlassmorphismInput
+                      label="Phone Number"
+                      type="tel"
+                      name="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      icon={<Phone size={18} className="text-indigo-600" />}
+                    />
                   </div>
                   {errors.phone && (
                     <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
@@ -239,13 +252,14 @@ function Login() {
 
                 <div className="animate-slideRight">
                   <div className="relative">
-                  <GlassmorphismInput
-        label="Company (optional)"
-        type="text"
-        name="company"
-        value={company}
-        onChange={(e) => setCompany(e.target.value)}
-      />
+                    <GlassmorphismInput
+                      label="Company (optional)"
+                      type="text"
+                      name="company"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      icon={<Building size={18} className="text-indigo-600" />}
+                    />
                   </div>
                 </div>
               </>
@@ -253,13 +267,14 @@ function Login() {
 
             <div className="animate-slideLeft">
               <div className="relative">
-              <GlassmorphismInput
-    label="Email Address"
-    type="email"
-    name="email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-  />
+                <GlassmorphismInput
+                  label="Email Address"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  icon={<Mail size={18} className="text-indigo-600" />}
+                />
               </div>
               {errors.email && (
                 <p className="mt-2 text-sm text-red-600">{errors.email}</p>
@@ -268,13 +283,28 @@ function Login() {
 
             <div className="animate-slideRight">
               <div className="relative">
-              <GlassmorphismInput
-    label="Password"
-    type="password"
-    name="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-  />
+                <GlassmorphismInput
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  icon={<Lock size={18} className="text-indigo-600" />}
+                  rightIcon={
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-indigo-600 transition-colors"
+                    >
+                      {showPassword ? (
+                        <Eye size={18} />
+                        
+                      ) : (
+                        <EyeOff size={18} />
+                      )}
+                    </button>
+                  }
+                />
               </div>
               {errors.password && (
                 <p className="mt-2 text-sm text-red-600">{errors.password}</p>
@@ -284,8 +314,6 @@ function Login() {
 
           <div className="flex items-center justify-between animate-fadeIn">
             <div className="flex items-center">
-           
-
               <input
                 id="remember-me"
                 name="remember-me"
@@ -303,13 +331,13 @@ function Login() {
             </div>
 
             {isLogin && (
-             <button
-             type="button"
-             onClick={() => navigate("/forgot-password")} // Navigate instead of using state
-             className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
-           >
-             Forgot password?
-           </button>
+              <button
+                type="button"
+                onClick={() => navigate("/forgot-password")}
+                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
+              >
+                Forgot password?
+              </button>
             )}
           </div>
 
@@ -318,7 +346,11 @@ function Login() {
             className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 animate-slideUp"
           >
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Lock className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-200" />
+              {isLogin ? (
+                <LogIn className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-200" />
+              ) : (
+                <UserPlus className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-200" />
+              )}
             </span>
             {isLogin ? "Sign in" : "Create account"}
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
