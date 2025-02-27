@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface GlassmorphismInputProps {
   label: string;
@@ -15,28 +15,50 @@ const GlassmorphismInput: React.FC<GlassmorphismInputProps> = ({
   value,
   onChange,
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const isActive = isFocused || value.length > 0;
+  
   return (
-    <div className="relative w-full mb-8">
-      {/* Floating Label */}
+    <div className="relative mb-6 group">
+      {/* Container with border */}
+      <div className={`absolute inset-0 rounded-lg border border-white/50 ${isFocused ? 'border-blue-500' : ''} transition-colors`}></div>
+      
+      {/* Border gap for label when active */}
+      {isActive && (
+        <div className="absolute top-0 left-3 right-0 h-px">
+          <div className="absolute left-0 w-2 h-px bg-white/50"></div>
+          <div className="absolute h-px bg-white/5 px-2">
+            <span className="opacity-0">{label}</span>
+          </div>
+          <div className={`absolute left-0 right-0 h-px bg-white/50 ${isFocused ? 'bg-blue-500' : ''} transition-colors`}
+               style={{ left: `calc(${label.length * 0.5}rem + 1rem)` }}></div>
+        </div>
+      )}
+      
+      {/* Input field - no border of its own */}
+      <input
+        type={type}
+        id={name}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        className="relative z-10 block w-full h-12 px-4 pt-1 pb-1 bg-white/20 backdrop-blur-md rounded-lg text-gray-900 appearance-none focus:outline-none border-0 focus:ring-0"
+        placeholder=" "
+      />
+      
+      {/* Label */}
       <label
-        className={`absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700 transition-all ${
-          value
-            ? "-top-4 left-2 text-md font-semibold text-blue-500 "
-            : "text-gray-500"
+        htmlFor={name}
+        className={`absolute z-20 px-1 transition-all duration-200 ${
+          isActive
+            ? 'text-xs -top-2 left-3 rounded-md bg-black/5 backdrop-blur-md text-blue-600'
+            : 'text-gray-500 top-3 left-4'
         }`}
       >
         {label}
       </label>
-
-      {/* Input Field */}
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="w-full px-4 pt-5 pb-2 bg-white/20 backdrop-blur-md border border-white/50 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-        placeholder=" " // Keeps the label floating effect
-      />
     </div>
   );
 };

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Mail,
   Lock,
   User,
   ArrowRight,
-  UserCircle,
-  Phone,
-  Building,
+  
 } from "lucide-react";
 import ForgotPassword from "./ForgotPassword";
 import { auth, db } from "../firebase";
@@ -24,10 +21,12 @@ import { doc, setDoc } from "firebase/firestore"; // Firestore methods
 
 import Dashboard from "./Dashboard";
 import GlassmorphismInput from "./GlassmorphismInput";
+import { useNavigate } from "react-router-dom";
+
+
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -36,6 +35,7 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
   const [errors, setErrors] = useState<{
     email?: string;
     password?: string;
@@ -175,11 +175,7 @@ function Login() {
         <div className="bg-blur"></div>
       </div>
 
-      <ForgotPassword
-        showForgotPassword={showForgotPassword}
-        setShowForgotPassword={setShowForgotPassword}
-      />
-
+      
       {/* Main Form */}
       <div className="max-w-md w-full space-y-8 glass-card p-6 sm:p-8 transition-all duration-300 hover:shadow-2xl animate-fadeIn relative z-10">
         <div className="text-center mb-[40px]">
@@ -307,15 +303,13 @@ function Login() {
             </div>
 
             {isLogin && (
-              <div className="text-sm">
-                <button
-                  type="button"
-                  onClick={() => setShowForgotPassword(true)}
-                  className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
-                >
-                  Forgot password?
-                </button>
-              </div>
+             <button
+             type="button"
+             onClick={() => navigate("/forgot-password")} // Navigate instead of using state
+             className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
+           >
+             Forgot password?
+           </button>
             )}
           </div>
 
