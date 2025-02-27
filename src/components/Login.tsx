@@ -189,7 +189,7 @@ function Login() {
         <div className="text-center mb-[40px]">
           <div className="mx-auto h-12 w-12 bg-white rounded-full flex items-center justify-center">
             {isLogin ? (
-              <LogIn className="h-6 w-6 text-indigo-600" />
+              <User className="h-6 w-6 text-indigo-600" />
             ) : (
               <UserPlus className="h-6 w-6 text-indigo-600" />
             )}
