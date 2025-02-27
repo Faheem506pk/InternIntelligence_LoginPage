@@ -345,13 +345,7 @@ function Login() {
             type="submit"
             className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 animate-slideUp"
           >
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              {isLogin ? (
-                <LogIn className="h-5 w-5 text-white-500 group-hover:text-indigo-400 transition-colors duration-200" />
-              ) : (
-                <UserPlus className="h-5 w-5 text-white-500 group-hover:text-indigo-400 transition-colors duration-200" />
-              )}
-            </span>
+            
             {isLogin ? "Sign in" : "Create account"}
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
           </button>
