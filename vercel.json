@@ -6,6 +6,11 @@
         "dest": "/assets/$1.js" 
       },
       { 
+        "src": "/assets/(.*)\\.css$", 
+        "headers": { "content-type": "text/css" },
+        "dest": "/assets/$1.css" 
+      },
+      { 
         "src": "/(.*)", 
         "dest": "/index.html" 
       }
