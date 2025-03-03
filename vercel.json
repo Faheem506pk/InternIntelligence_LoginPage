@@ -1,5 +1,13 @@
 {
     "routes": [
-      { "src": "/(.*)", "dest": "/index.html" }
+      { 
+        "src": "/assets/(.*)\\.js$", 
+        "headers": { "content-type": "application/javascript" },
+        "dest": "/assets/$1.js" 
+      },
+      { 
+        "src": "/(.*)", 
+        "dest": "/index.html" 
+      }
     ]
   }
