@@ -39,12 +39,12 @@ const ForgotPassword: React.FC = () => {
       {/* Main Form */}
       <div className="max-w-md w-full space-y-8 glass-card p-6 sm:p-8 transition-all duration-300 hover:shadow-2xl animate-fadeIn relative z-10">
         {/* Back Button */}
-        <button
+        {/* <button
           onClick={() => navigate("/login")}
           className="absolute top-4 left-4 text-indigo-600 hover:text-indigo-500 transition-all"
         >
           <ArrowLeft className="h-6 w-6" />
-        </button>
+        </button> */}
 
         {/* Header */}
         <div className="text-center mb-[40px]">
