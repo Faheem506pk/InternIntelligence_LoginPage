@@ -8,10 +8,8 @@ import {
   Mail,
   Phone,
   Building,
-  LogIn,
   UserPlus
 } from "lucide-react";
-import ForgotPassword from "./ForgotPassword";
 import { auth, db } from "../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -141,8 +139,7 @@ function Login() {
         setPhone("");
         setCompany("");
 
-        // Redirect to Dashboard or another page
-        window.location.href = "/dashboard";
+        
       } catch (error: any) {
         console.error("Firebase Auth Error:", error.code, error.message);
         setErrors({ auth: error.message });
