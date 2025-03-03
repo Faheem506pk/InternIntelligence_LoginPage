@@ -5,6 +5,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import GlassmorphismInput from "./GlassmorphismInput";
+import { Helmet } from "react-helmet-async";
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -30,6 +31,9 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <div className="bg-auth-container">
+       <Helmet>
+          <title>Forgot Password</title>
+        </Helmet>
       <div className="absolute inset-0">
         <div className="bg-blur"></div>
         <div className="bg-blur"></div>

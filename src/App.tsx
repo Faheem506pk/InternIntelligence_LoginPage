@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { HelmetProvider } from 'react-helmet-async';
 import { auth } from "./firebase";
 
 function App() {
@@ -29,7 +30,9 @@ function App() {
   }
 
   return (
+    <HelmetProvider>
     <Router>
+   
       <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         {/* Public routes */}
@@ -44,6 +47,7 @@ function App() {
         <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
       </Routes>
     </Router>
+    </HelmetProvider>
   );
 }
 

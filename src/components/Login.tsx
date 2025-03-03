@@ -26,6 +26,7 @@ import { doc, setDoc } from "firebase/firestore"; // Firestore methods
 import Dashboard from "./Dashboard";
 import GlassmorphismInput from "./GlassmorphismInput";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -175,6 +176,9 @@ function Login() {
 
   return (
     <div className="bg-auth-container">
+      <Helmet>
+                <title>Login</title>
+              </Helmet>
       <div className="absolute inset-0">
         <div className="bg-blur"></div>
         <div className="bg-blur"></div>
@@ -215,6 +219,9 @@ function Login() {
           <div className="space-y-4">
             {!isLogin && (
               <>
+              <Helmet>
+                <title>Sign up</title>
+              </Helmet>
                 <div className="animate-slideRight">
                   <div className="relative">
                     <GlassmorphismInput
