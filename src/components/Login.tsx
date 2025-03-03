@@ -25,11 +25,13 @@ import { doc, setDoc } from "firebase/firestore"; // Firestore methods
 
 import Dashboard from "./Dashboard";
 import GlassmorphismInput from "./GlassmorphismInput";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-function Login() {
-  const [isLogin, setIsLogin] = useState(true);
+function AuthPage() {
+  const location = useLocation();
+  const isSignupRoute = location.pathname === "/signup";
+  const [isLogin, setIsLogin] = useState(!isSignupRoute);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -47,6 +49,11 @@ function Login() {
     phone?: string;
     auth?: string;
   }>({});
+
+  useEffect(() => {
+    // Update isLogin state when the route changes
+    setIsLogin(!isSignupRoute);
+  }, [location.pathname, isSignupRoute]);
 
   useEffect(() => {
     console.log("Checking Firebase connection...");
@@ -149,13 +156,11 @@ function Login() {
   };
 
   const toggleMode = () => {
-    setIsLogin(!isLogin);
-    setErrors({});
-    setEmail("");
-    setPassword("");
-    setName("");
-    setPhone("");
-    setCompany("");
+    if (isLogin) {
+      navigate("/signup");
+    } else {
+      navigate("/login");
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -177,8 +182,8 @@ function Login() {
   return (
     <div className="bg-auth-container">
       <Helmet>
-                <title>Login</title>
-              </Helmet>
+        <title>{isLogin ? "Login" : "Sign up"}</title>
+      </Helmet>
       <div className="absolute inset-0">
         <div className="bg-blur"></div>
         <div className="bg-blur"></div>
@@ -219,9 +224,6 @@ function Login() {
           <div className="space-y-4">
             {!isLogin && (
               <>
-              <Helmet>
-                <title>Sign up</title>
-              </Helmet>
                 <div className="animate-slideRight">
                   <div className="relative">
                     <GlassmorphismInput
@@ -359,4 +361,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AuthPage;
