@@ -1,5 +1,7 @@
 # Login App with Firebase Authentication
 
+![Banner](public/Banner.png)
+
 ## Overview
 This is a beautifully designed login and signup application built with React, Vite, Tailwind CSS, and Firebase. The app features smooth animations and essential authentication functionalities, including:
 
@@ -23,8 +25,8 @@ This is a beautifully designed login and signup application built with React, Vi
 ## Installation
 ### 1. Clone the Repository
 ```sh
-git https://github.com/Faheem506pk/InternIntelligence_LoginPage
-cd InternIntelligence_LoginPage
+git clone https://github.com/your-repo-url.git
+cd your-repo-folder
 ```
 
 ### 2. Install Dependencies
@@ -62,6 +64,7 @@ npm run dev
 │   ├── App.tsx                     # Main App Component
 │   ├── firebase.ts                  # Firebase Initialization
 ├── public/
+│   ├── Banner.png                  # Banner Image
 ├── .env                            # Firebase Keys (Not Committed)
 ├── package.json                    # Dependencies & Scripts
 └── README.md                        # Documentation
@@ -78,6 +81,7 @@ npm run dev
 - **Glassmorphism Design** for a modern, sleek look.
 - **Animated Inputs** that dynamically adjust based on focus.
 - **Responsive Design** using Tailwind CSS.
+- **Banner Image** included for enhanced visual appeal.
 
 ## Deployment
 To build and deploy the project, run:
